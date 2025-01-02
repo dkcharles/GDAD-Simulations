@@ -1,9 +1,9 @@
 using UnityEngine;
-using System;
 
 public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private InputHandler inputHandler;
+    [SerializeField] private bool debugMode = true; // Toggle for debug messages
 
     private void OnEnable()
     {
@@ -51,93 +51,101 @@ public class PlayerInput : MonoBehaviour
         inputHandler.OnPause -= Pause;
     }
 
+    private void DebugLog(string message)
+    {
+        if (debugMode)
+        {
+            Debug.Log(message);
+        }
+    }
+
     private void Move(Vector2 input)
     {
-        Debug.Log($"Moving with input: {input}");
+        DebugLog($"Moving with input: {input}");
     }
 
     private void Look(Vector2 input)
     {
-        Debug.Log($"Looking with input: {input}");
+        DebugLog($"Looking with input: {input}");
     }
 
     private void Jump()
     {
-        Debug.Log("Jumping!");
+        DebugLog("Jumping!");
     }
 
     private void Attack()
     {
-        Debug.Log("Attacking!");
+        DebugLog("Attacking!");
     }
 
     private void Interact()
     {
-        Debug.Log("Interacting!");
+        DebugLog("Interacting!");
     }
 
     private void Crouch()
     {
-        Debug.Log("Crouching!");
+        DebugLog("Crouching!");
     }
 
     private void Sprint()
     {
-        Debug.Log("Sprinting!");
+        DebugLog("Sprinting!");
     }
-    
+
     private void Aim(float input)
     {
-        Debug.Log($"Aiming with input: {input}");
+        DebugLog($"Aiming with input: {input}");
     }
-    
+
     private void Shoot(float input)
     {
-        Debug.Log($"Shooting with input: {input}");
+        DebugLog($"Shooting with input: {input}");
     }
 
     private void LeftShoulder()
     {
-        Debug.Log("Left shoulder action triggered!");
+        DebugLog("Left shoulder action triggered!");
     }
-    
+
     private void RightShoulder()
     {
-        Debug.Log("Right shoulder action triggered!");
+        DebugLog("Right shoulder action triggered!");
     }
-    
+
     private void LeftStickPress()
     {
-        Debug.Log("Left stick press action triggered!");
+        DebugLog("Left stick press action triggered!");
     }
-    
+
     private void RightStickPress()
     {
-        Debug.Log("Right stick press action triggered!");
+        DebugLog("Right stick press action triggered!");
     }
-    
+
     private void Left()
     {
-        Debug.Log("Previous action triggered!");
+        DebugLog("Previous action triggered!");
     }
-    
+
     private void Right()
     {
-        Debug.Log("Next action triggered!");
+        DebugLog("Next action triggered!");
     }
-    
+
     private void Up()
     {
-        Debug.Log("Up action triggered!");
+        DebugLog("Up action triggered!");
     }
-    
+
     private void Down()
     {
-        Debug.Log("Down action triggered!");
+        DebugLog("Down action triggered!");
     }
 
     private void Pause()
     {
-        Debug.Log("Game paused!");
+        DebugLog("Game paused!");
     }
 }
