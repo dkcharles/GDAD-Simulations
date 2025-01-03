@@ -5,221 +5,247 @@ using System;
 public class InputHandler : MonoBehaviour
 {
     // Define events for input actions
-    public event Action<Vector2> OnMove;
-    public event Action<Vector2> OnLook;
-    public event Action OnAttack;
-    public event Action OnJump;
-    public event Action OnInteract;
-    public event Action OnCrouch;
-    public event Action OnSprint;
-    public event Action<float> OnAim;
-    public event Action<float> OnShoot;
+    public event Action<Vector2> OnLeftStick;
+    public event Action<Vector2> OnRightStick;
+    public event Action OnButtonNorth;
+    public event Action OnButtonSouth;
+    public event Action OnButtonEast;
+    public event Action OnButtonWest;
+    public event Action<float> OnLeftTrigger;
+    public event Action<float> OnRightTrigger;
     public event Action OnLeftShoulder;
     public event Action OnRightShoulder;
     public event Action OnLeftStickPress;
     public event Action OnRightStickPress;
-    public event Action OnLeft;
-    public event Action OnRight;
-    public event Action OnUp;
-    public event Action OnDown;
-    
-    public event Action OnPause;
+    public event Action OnPadLeft;
+    public event Action OnPadRight;
+    public event Action OnPadUp;
+    public event Action OnPadDown;
+    public event Action OnLeftStickLeft;
+    public event Action OnLeftStickRight;
+    public event Action OnLeftStickUp;
+    public event Action OnLeftStickDown;
+    public event Action OnButtonStart;
+    public event Action OnButtonSelect;
 
     // Reference to the Input Actions asset
     [SerializeField] private InputActionAsset inputActions;
 
     // Cached input actions
-    private InputAction moveAction;
-    private InputAction lookAction;
+    private InputAction leftStickAction;
+    private InputAction rightStickAction;
     
-    private InputAction attackAction;
-    private InputAction jumpAction;
-    private InputAction interactAction;
-    private InputAction crouchAction;
-    private InputAction sprintAction;
+    private InputAction buttonNorthAction;
+    private InputAction buttonSouthAction;
+    private InputAction buttonEastAction;
+    private InputAction buttonWestAction;
     
-    private InputAction aimAction;
-    private InputAction shootAction;
+    private InputAction leftTriggerAction;
+    private InputAction rightTriggerAction;
 
     private InputAction leftShoulderAction;
     private InputAction rightShoulderAction;
+    
     private InputAction leftStickPressAction;
     private InputAction rightStickPressAction;
     
-    private InputAction leftAction;
-    private InputAction rightAction;
-    private InputAction upAction;
-    private InputAction downAction;
+    private InputAction padLeftAction;
+    private InputAction padRightAction;
+    private InputAction padUpAction;
+    private InputAction padDownAction;
     
-    private InputAction pauseAction;
+    private InputAction leftStickLeftAction;
+    private InputAction leftStickRightAction;
+    private InputAction leftStickUpAction;
+    private InputAction leftStickDownAction;
+    
+    private InputAction buttonStartAction;
+    private InputAction buttonSelectAction;
 
     private void Awake()
     {
         // Get individual input actions
         var playerInputMap = inputActions.FindActionMap("Player"); // Replace "Player" with your action map name
-        moveAction = playerInputMap.FindAction("Move");
-        lookAction = playerInputMap.FindAction("Look");
         
-        attackAction = playerInputMap.FindAction("Attack");
-        jumpAction = playerInputMap.FindAction("Jump");
-        interactAction = playerInputMap.FindAction("Interact");
-        crouchAction = playerInputMap.FindAction("Crouch");
-        sprintAction = playerInputMap.FindAction("Sprint");
-        
-        aimAction = playerInputMap.FindAction("Aim");
-        shootAction = playerInputMap.FindAction("Shoot");
-        
+        leftStickAction = playerInputMap.FindAction("LeftStick");
+        rightStickAction = playerInputMap.FindAction("RightStick");
+
+        buttonWestAction = playerInputMap.FindAction("ButtonWest");
+        buttonSouthAction = playerInputMap.FindAction("ButtonSouth");
+        buttonNorthAction = playerInputMap.FindAction("ButtonNorth");
+        buttonEastAction = playerInputMap.FindAction("ButtonEast");
+
+        leftTriggerAction = playerInputMap.FindAction("LeftTrigger");
+        rightTriggerAction = playerInputMap.FindAction("RightTrigger");
+
         leftShoulderAction = playerInputMap.FindAction("LeftShoulder");
         rightShoulderAction = playerInputMap.FindAction("RightShoulder");
         leftStickPressAction = playerInputMap.FindAction("LeftStickPress");
         rightStickPressAction = playerInputMap.FindAction("RightStickPress");
-        
-        leftAction = playerInputMap.FindAction("Left");
-        rightAction = playerInputMap.FindAction("Right");
-        upAction = playerInputMap.FindAction("Up");
-        downAction = playerInputMap.FindAction("Down");
-        
-        pauseAction = playerInputMap.FindAction("Pause");
+
+        padLeftAction = playerInputMap.FindAction("PadLeft");
+        padRightAction = playerInputMap.FindAction("PadRight");
+        padUpAction = playerInputMap.FindAction("PadUp");
+        padDownAction = playerInputMap.FindAction("PadDown");
+
+        leftStickLeftAction = playerInputMap.FindAction("LeftStickLeft");
+        leftStickRightAction = playerInputMap.FindAction("LeftStickRight");
+        leftStickUpAction = playerInputMap.FindAction("LeftStickUp");
+        leftStickDownAction = playerInputMap.FindAction("LeftStickDown");
+
+        buttonStartAction = playerInputMap.FindAction("ButtonStart");
+        buttonSelectAction = playerInputMap.FindAction("ButtonSelect");
     }
 
     private void OnEnable()
     {
         // Enable input actions
-        moveAction.Enable();
-        lookAction.Enable();
-        attackAction.Enable();
-        jumpAction.Enable();
-        interactAction.Enable();
-        crouchAction.Enable();
-        sprintAction.Enable();
-        aimAction.Enable();
-        shootAction.Enable();
+        leftStickAction.Enable();
+        rightStickAction.Enable();
+        buttonWestAction.Enable();
+        buttonSouthAction.Enable();
+        buttonNorthAction.Enable();
+        buttonEastAction.Enable();
+        leftTriggerAction.Enable();
+        rightTriggerAction.Enable();
         leftShoulderAction.Enable();
         rightShoulderAction.Enable();
         leftStickPressAction.Enable();
         rightStickPressAction.Enable();
-        leftAction.Enable();
-        rightAction.Enable();
-        upAction.Enable();
-        downAction.Enable();
-        pauseAction.Enable();
+        padLeftAction.Enable();
+        padRightAction.Enable();
+        padUpAction.Enable();
+        padDownAction.Enable();
+        leftStickLeftAction.Enable();
+        leftStickRightAction.Enable();
+        leftStickUpAction.Enable();
+        leftStickDownAction.Enable();
+        buttonStartAction.Enable();
+        buttonSelectAction.Enable();
 
         // Subscribe to input action callbacks
-        moveAction.performed += HandleMove;
-        moveAction.canceled += HandleMove; // To detect stop moving
-        lookAction.performed += HandleLook;
-        lookAction.canceled += HandleLook; // To detect stop looking
-        attackAction.performed += HandleAttack;
-        jumpAction.performed += HandleJump;
-        interactAction.performed += HandleInteract;
-        crouchAction.performed += HandleCrouch;
-        sprintAction.performed += HandleSprint;
-        aimAction.performed += HandleAim;
-        shootAction.performed += HandleShoot;
+        leftStickAction.performed += HandleLeftStick;
+        leftStickAction.canceled += HandleLeftStick; // To detect stop moving
+        rightStickAction.performed += HandleRightStick;
+        rightStickAction.canceled += HandleRightStick; // To detect stop looking
+        buttonWestAction.performed += HandleButtonWest;
+        buttonSouthAction.performed += HandleButtonSouth;
+        buttonNorthAction.performed += HandleButtonNorth;
+        buttonEastAction.performed += HandleButtonEast;
+        leftTriggerAction.performed += HandleLeftTrigger;
+        rightTriggerAction.performed += HandleRightTrigger;
         leftShoulderAction.performed += HandleLeftShoulder;
         rightShoulderAction.performed += HandleRightShoulder;
         leftStickPressAction.performed += HandleLeftStickPress;
         rightStickPressAction.performed += HandleRightStickPress;
-        leftAction.performed += HandleLeft;
-        rightAction.performed += HandleRight;
-        upAction.performed += HandleUp;
-        downAction.performed += HandleDown;
-        pauseAction.performed += HandlePause;
+        padLeftAction.performed += HandlePadLeft;
+        padRightAction.performed += HandlePadRight;
+        padUpAction.performed += HandlePadUp;
+        padDownAction.performed += HandlePadDown;
+        leftStickLeftAction.performed += HandleLeftStickLeft;
+        leftStickRightAction.performed += HandleLeftStickRight;
+        leftStickUpAction.performed += HandleLeftStickUp;
+        leftStickDownAction.performed += HandleLeftStickDown;
+        buttonStartAction.performed += HandleButtonStart;
+        buttonSelectAction.performed += HandleButtonSelect;
     }
 
     private void OnDisable()
     {
         // Unsubscribe to avoid memory leaks
-        moveAction.performed -= HandleMove;
-        moveAction.canceled -= HandleMove;
-        lookAction.performed -= HandleLook;
-        lookAction.canceled -= HandleLook;
-        attackAction.performed -= HandleAttack;
-        jumpAction.performed -= HandleJump;
-        interactAction.performed -= HandleInteract;
-        crouchAction.performed -= HandleCrouch;
-        sprintAction.performed -= HandleSprint;
-        aimAction.performed -= HandleAim;
-        shootAction.performed -= HandleShoot;
+        leftStickAction.performed -= HandleLeftStick;
+        leftStickAction.canceled -= HandleLeftStick;
+        rightStickAction.performed -= HandleRightStick;
+        rightStickAction.canceled -= HandleRightStick;
+        buttonWestAction.performed -= HandleButtonWest;
+        buttonSouthAction.performed -= HandleButtonSouth;
+        buttonNorthAction.performed -= HandleButtonNorth;
+        buttonEastAction.performed -= HandleButtonEast;
+        leftTriggerAction.performed -= HandleLeftTrigger;
+        rightTriggerAction.performed -= HandleRightTrigger;
         leftShoulderAction.performed -= HandleLeftShoulder;
         rightShoulderAction.performed -= HandleRightShoulder;
         leftStickPressAction.performed -= HandleLeftStickPress;
         rightStickPressAction.performed -= HandleRightStickPress;
-        leftAction.performed -= HandleLeft;
-        rightAction.performed -= HandleRight;
-        upAction.performed -= HandleUp;
-        downAction.performed -= HandleDown;
-        pauseAction.performed -= HandlePause;
+        padLeftAction.performed -= HandlePadLeft;
+        padRightAction.performed -= HandlePadRight;
+        padUpAction.performed -= HandlePadUp;
+        padDownAction.performed -= HandlePadDown;
+        leftStickLeftAction.performed -= HandleLeftStickLeft;
+        leftStickRightAction.performed -= HandleLeftStickRight;
+        leftStickUpAction.performed -= HandleLeftStickUp;
+        leftStickDownAction.performed -= HandleLeftStickDown;
+        buttonStartAction.performed -= HandleButtonStart;
+        buttonSelectAction.performed -= HandleButtonSelect;
 
         // Disable input actions
-        moveAction.Disable();
-        lookAction.Disable();
-        attackAction.Disable();
-        jumpAction.Disable();
-        interactAction.Disable();
-        crouchAction.Disable();
-        sprintAction.Disable();
-        aimAction.Disable();
-        shootAction.Disable();
+        leftStickAction.Disable();
+        rightStickAction.Disable();
+        buttonWestAction.Disable();
+        buttonSouthAction.Disable();
+        buttonNorthAction.Disable();
+        buttonEastAction.Disable();
+        leftTriggerAction.Disable();
+        rightTriggerAction.Disable();
         leftShoulderAction.Disable();
         rightShoulderAction.Disable();
         leftStickPressAction.Disable();
         rightStickPressAction.Disable();
-        leftAction.Disable();
-        rightAction.Disable();
-        upAction.Disable();
-        downAction.Disable();
-        pauseAction.Disable();
+        padLeftAction.Disable();
+        padRightAction.Disable();
+        padUpAction.Disable();
+        padDownAction.Disable();
+        leftStickLeftAction.Disable();
+        leftStickRightAction.Disable();
+        leftStickUpAction.Disable();
+        leftStickDownAction.Disable();
+        buttonStartAction.Disable();
+        buttonSelectAction.Disable();
     }
 
     // Input event handlers
-    private void HandleMove(InputAction.CallbackContext context)
+    private void HandleLeftStick(InputAction.CallbackContext context)
     {
         var input = context.ReadValue<Vector2>();
-        OnMove?.Invoke(input);
+        OnLeftStick?.Invoke(input);
     }
 
-    private void HandleLook(InputAction.CallbackContext context)
+    private void HandleRightStick(InputAction.CallbackContext context)
     {
         var input = context.ReadValue<Vector2>();
-        OnLook?.Invoke(input);
+        OnRightStick?.Invoke(input);
     }
 
-    private void HandleAttack(InputAction.CallbackContext context)
+    private void HandleButtonWest(InputAction.CallbackContext context)
     {
-        OnAttack?.Invoke();
+        OnButtonWest?.Invoke();
     }
 
-    private void HandleJump(InputAction.CallbackContext context)
+    private void HandleButtonSouth(InputAction.CallbackContext context)
     {
-        OnJump?.Invoke();
+        OnButtonSouth?.Invoke();
     }
 
-    private void HandleInteract(InputAction.CallbackContext context)
+    private void HandleButtonNorth(InputAction.CallbackContext context)
     {
-        OnInteract?.Invoke();
+        OnButtonNorth?.Invoke();
     }
 
-    private void HandleCrouch(InputAction.CallbackContext context)
+    private void HandleButtonEast(InputAction.CallbackContext context)
     {
-        OnCrouch?.Invoke();
-    }
-
-    private void HandleSprint(InputAction.CallbackContext context)
-    {
-        OnSprint?.Invoke();
+        OnButtonEast?.Invoke();
     }
     
-    private void HandleAim(InputAction.CallbackContext context)
+    private void HandleLeftTrigger(InputAction.CallbackContext context)
     {
         var input = context.ReadValue<float>();
-        OnAim?.Invoke(input);
+        OnLeftTrigger?.Invoke(input);
     }
     
-    private void HandleShoot(InputAction.CallbackContext context)
+    private void HandleRightTrigger(InputAction.CallbackContext context)
     {
         var input = context.ReadValue<float>();
-        OnShoot?.Invoke(input);
+        OnRightTrigger?.Invoke(input);
     }
     
     private void HandleLeftShoulder(InputAction.CallbackContext context)
@@ -242,28 +268,53 @@ public class InputHandler : MonoBehaviour
         OnRightStickPress?.Invoke();
     }
     
-    private void HandleLeft(InputAction.CallbackContext context)
+    private void HandlePadLeft(InputAction.CallbackContext context)
     {
-        OnLeft?.Invoke();
+        OnPadLeft?.Invoke();
     }
     
-    private void HandleRight(InputAction.CallbackContext context)
+    private void HandlePadRight(InputAction.CallbackContext context)
     {
-        OnRight?.Invoke();
+        OnPadRight?.Invoke();
     }
     
-    private void HandleUp(InputAction.CallbackContext context)
+    private void HandlePadUp(InputAction.CallbackContext context)
     {
-        OnUp?.Invoke();
+        OnPadUp?.Invoke();
     }
     
-    private void HandleDown(InputAction.CallbackContext context)
+    private void HandlePadDown(InputAction.CallbackContext context)
     {
-        OnDown?.Invoke();
+        OnPadDown?.Invoke();
     }
     
-    private void HandlePause(InputAction.CallbackContext context)
+    private void HandleLeftStickLeft(InputAction.CallbackContext context)
     {
-        OnPause?.Invoke();
+        OnLeftStickLeft?.Invoke();
+    }
+    
+    private void HandleLeftStickRight(InputAction.CallbackContext context)
+    {
+        OnLeftStickRight?.Invoke();
+    }
+    
+    private void HandleLeftStickUp(InputAction.CallbackContext context)
+    {
+        OnLeftStickUp?.Invoke();
+    }
+    
+    private void HandleLeftStickDown(InputAction.CallbackContext context)
+    {
+        OnLeftStickDown?.Invoke();
+    }
+    
+    private void HandleButtonStart(InputAction.CallbackContext context)
+    {
+        OnButtonStart?.Invoke();
+    }
+    
+    private void HandleButtonSelect(InputAction.CallbackContext context)
+    {
+        OnButtonSelect?.Invoke();
     }
 }

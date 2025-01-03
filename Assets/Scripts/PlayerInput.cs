@@ -3,149 +3,174 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private InputHandler inputHandler;
-    [SerializeField] private bool debugMode = true; // Toggle for debug messages
+    [SerializeField] private bool debugAnalogInputs = true; // Toggle for analog input debug messages
+    [SerializeField] private bool debugButtonInputs = true; // Toggle for button input debug messages
 
     private void OnEnable()
     {
         // Subscribe to InputHandler events
-        inputHandler.OnMove += Move;
-        inputHandler.OnLook += Look;
-        inputHandler.OnJump += Jump;
-        inputHandler.OnAttack += Attack;
-        inputHandler.OnInteract += Interact;
-        inputHandler.OnCrouch += Crouch;
-        inputHandler.OnSprint += Sprint;
-        inputHandler.OnAim += Aim;
-        inputHandler.OnShoot += Shoot;
+        inputHandler.OnLeftStick += LeftStick;
+        inputHandler.OnRightStick += RightStick;
+        inputHandler.OnButtonSouth += ButtonSouth;
+        inputHandler.OnButtonWest += ButtonWest;
+        inputHandler.OnButtonNorth += ButtonNorth;
+        inputHandler.OnButtonEast += ButtonEast;
+        inputHandler.OnLeftTrigger += LeftTrigger;
+        inputHandler.OnRightTrigger += RightTrigger;
         inputHandler.OnLeftShoulder += LeftShoulder;
         inputHandler.OnRightShoulder += RightShoulder;
         inputHandler.OnLeftStickPress += LeftStickPress;
         inputHandler.OnRightStickPress += RightStickPress;
-        inputHandler.OnLeft += Left;
-        inputHandler.OnRight += Right;
-        inputHandler.OnUp += Up;
-        inputHandler.OnDown += Down;
-        inputHandler.OnPause += Pause;
+        inputHandler.OnPadLeft += PadLeft;
+        inputHandler.OnPadRight += PadRight;
+        inputHandler.OnPadUp += PadUp;
+        inputHandler.OnPadDown += PadDown;
+        inputHandler.OnLeftStickLeft += LeftStickLeft;
+        inputHandler.OnLeftStickRight += LeftStickRight;
+        inputHandler.OnLeftStickUp += LeftStickUp;
+        inputHandler.OnLeftStickDown += LeftStickDown;
+        inputHandler.OnButtonStart += ButtonStart;
+        inputHandler.OnButtonSelect += ButtonSelect;
     }
 
     private void OnDisable()
     {
         // Unsubscribe from InputHandler events
-        inputHandler.OnMove -= Move;
-        inputHandler.OnLook -= Look;
-        inputHandler.OnJump -= Jump;
-        inputHandler.OnAttack -= Attack;
-        inputHandler.OnInteract -= Interact;
-        inputHandler.OnCrouch -= Crouch;
-        inputHandler.OnSprint -= Sprint;
-        inputHandler.OnAim -= Aim;
-        inputHandler.OnShoot -= Shoot;
+        inputHandler.OnLeftStick -= LeftStick;
+        inputHandler.OnRightStick -= RightStick;
+        inputHandler.OnButtonSouth -= ButtonSouth;
+        inputHandler.OnButtonWest -= ButtonWest;
+        inputHandler.OnButtonNorth -= ButtonNorth;
+        inputHandler.OnButtonEast -= ButtonEast;
+        inputHandler.OnLeftTrigger -= LeftTrigger;
+        inputHandler.OnRightTrigger -= RightTrigger;
         inputHandler.OnLeftShoulder -= LeftShoulder;
         inputHandler.OnRightShoulder -= RightShoulder;
         inputHandler.OnLeftStickPress -= LeftStickPress;
         inputHandler.OnRightStickPress -= RightStickPress;
-        inputHandler.OnLeft -= Left;
-        inputHandler.OnRight -= Right;
-        inputHandler.OnUp -= Up;
-        inputHandler.OnDown -= Down;
-        inputHandler.OnPause -= Pause;
+        inputHandler.OnPadLeft -= PadLeft;
+        inputHandler.OnPadRight -= PadRight;
+        inputHandler.OnPadUp -= PadUp;
+        inputHandler.OnPadDown -= PadDown;
+        inputHandler.OnButtonStart -= ButtonStart;
+        inputHandler.OnButtonSelect -= ButtonSelect;
     }
 
-    private void DebugLog(string message)
+    private void DebugLog(string message, bool isAnalog)
     {
-        if (debugMode)
+        if ((isAnalog && debugAnalogInputs) || (!isAnalog && debugButtonInputs))
         {
             Debug.Log(message);
         }
     }
 
-    private void Move(Vector2 input)
+    private void LeftStick(Vector2 input)
     {
-        DebugLog($"Moving with input: {input}");
+        DebugLog($"LeftStick with input: {input}", true);
     }
 
-    private void Look(Vector2 input)
+    private void RightStick(Vector2 input)
     {
-        DebugLog($"Looking with input: {input}");
+        DebugLog($"RightStick with input: {input}", true);
     }
 
-    private void Jump()
+    private void ButtonSouth()
     {
-        DebugLog("Jumping!");
+        DebugLog("ButtonSouth pressed!", false);
     }
 
-    private void Attack()
+    private void ButtonWest()
     {
-        DebugLog("Attacking!");
+        DebugLog("ButtonWest pressed!", false);
     }
 
-    private void Interact()
+    private void ButtonNorth()
     {
-        DebugLog("Interacting!");
+        DebugLog("ButtonNorth pressed!", false);
     }
 
-    private void Crouch()
+    private void ButtonEast()
     {
-        DebugLog("Crouching!");
+        DebugLog("ButtonEast pressed!", false);
     }
 
-    private void Sprint()
+    private void LeftTrigger(float input)
     {
-        DebugLog("Sprinting!");
+        DebugLog($"LeftTrigger with input: {input}", true);
     }
 
-    private void Aim(float input)
+    private void RightTrigger(float input)
     {
-        DebugLog($"Aiming with input: {input}");
-    }
-
-    private void Shoot(float input)
-    {
-        DebugLog($"Shooting with input: {input}");
+        DebugLog($"RightTrigger with input: {input}", true);
     }
 
     private void LeftShoulder()
     {
-        DebugLog("Left shoulder action triggered!");
+        DebugLog("LeftShoulder pressed!", false);
     }
 
     private void RightShoulder()
     {
-        DebugLog("Right shoulder action triggered!");
+        DebugLog("RightShoulder pressed!", false);
     }
 
     private void LeftStickPress()
     {
-        DebugLog("Left stick press action triggered!");
+        DebugLog("LeftStickPress pressed!", false);
     }
 
     private void RightStickPress()
     {
-        DebugLog("Right stick press action triggered!");
+        DebugLog("RightStickPress pressed!", false);
     }
 
-    private void Left()
+    private void PadLeft()
     {
-        DebugLog("Previous action triggered!");
+        DebugLog("PadLeft pressed!", false);
     }
 
-    private void Right()
+    private void PadRight()
     {
-        DebugLog("Next action triggered!");
+        DebugLog("PadRight pressed!", false);
     }
 
-    private void Up()
+    private void PadUp()
     {
-        DebugLog("Up action triggered!");
+        DebugLog("PadUp pressed!", false);
     }
 
-    private void Down()
+    private void PadDown()
     {
-        DebugLog("Down action triggered!");
+        DebugLog("PadDown pressed!", false);
     }
 
-    private void Pause()
+    private void LeftStickLeft()
     {
-        DebugLog("Game paused!");
+        DebugLog("LeftStickLeft pressed!", false);
+    }
+
+    private void LeftStickRight()
+    {
+        DebugLog("LeftStickRight pressed!", false);
+    }
+
+    private void LeftStickUp()
+    {
+        DebugLog("LeftStickUp pressed!", false);
+    }
+
+    private void LeftStickDown()
+    {
+        DebugLog("LeftStickDown pressed!", false);
+    }
+
+    private void ButtonStart()
+    {
+        DebugLog("ButtonStart pressed!", false);
+    }
+
+    private void ButtonSelect()
+    {
+        DebugLog("ButtonSelect pressed!", false);
     }
 }
