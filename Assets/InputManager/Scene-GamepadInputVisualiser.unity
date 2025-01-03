@@ -639,6 +639,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2712440253777965479, guid: c063c71942f628b4396430bb36157baa, type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2806598231047278191, guid: c063c71942f628b4396430bb36157baa, type: 3}
       propertyPath: m_Color.b
       value: 0.16037738
