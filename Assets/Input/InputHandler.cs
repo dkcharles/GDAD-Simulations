@@ -4,29 +4,33 @@ using System;
 
 public class InputHandler : MonoBehaviour
 {
-    // Define events for input actions
-    public event Action<Vector2> OnLeftStick;
-    public event Action<Vector2> OnRightStick;
-    public event Action OnButtonNorth;
-    public event Action OnButtonSouth;
-    public event Action OnButtonEast;
-    public event Action OnButtonWest;
-    public event Action<float> OnLeftTrigger;
-    public event Action<float> OnRightTrigger;
-    public event Action OnLeftShoulder;
-    public event Action OnRightShoulder;
-    public event Action OnLeftStickPress;
-    public event Action OnRightStickPress;
-    public event Action OnPadLeft;
-    public event Action OnPadRight;
-    public event Action OnPadUp;
-    public event Action OnPadDown;
-    public event Action OnLeftStickLeft;
-    public event Action OnLeftStickRight;
-    public event Action OnLeftStickUp;
-    public event Action OnLeftStickDown;
-    public event Action OnButtonStart;
-    public event Action OnButtonSelect;
+    // Define static events for input actions
+    public static event Action<Vector2> OnLeftStick;
+    public static event Action<Vector2> OnRightStick;
+    public static event Action OnButtonNorth;
+    public static event Action OnButtonSouth;
+    public static event Action OnButtonEast;
+    public static event Action OnButtonWest;
+    public static event Action<float> OnLeftTrigger;
+    public static event Action<float> OnRightTrigger;
+    public static event Action OnLeftShoulder;
+    public static event Action OnRightShoulder;
+    public static event Action OnLeftStickPress;
+    public static event Action OnRightStickPress;
+    public static event Action OnPadLeft;
+    public static event Action OnPadRight;
+    public static event Action OnPadUp;
+    public static event Action OnPadDown;
+    public static event Action OnLeftStickLeft;
+    public static event Action OnLeftStickRight;
+    public static event Action OnLeftStickUp;
+    public static event Action OnLeftStickDown;
+    public static event Action OnRightStickLeft;
+    public static event Action OnRightStickRight;
+    public static event Action OnRightStickUp;
+    public static event Action OnRightStickDown;
+    public static event Action OnButtonStart;
+    public static event Action OnButtonSelect;
 
     // Reference to the Input Actions asset
     [SerializeField] private InputActionAsset inputActions;
@@ -58,6 +62,10 @@ public class InputHandler : MonoBehaviour
     private InputAction leftStickRightAction;
     private InputAction leftStickUpAction;
     private InputAction leftStickDownAction;
+    private InputAction rightStickLeftAction;
+    private InputAction rightStickRightAction;
+    private InputAction rightStickUpAction;
+    private InputAction rightStickDownAction;
     
     private InputAction buttonStartAction;
     private InputAction buttonSelectAction;
@@ -92,6 +100,10 @@ public class InputHandler : MonoBehaviour
         leftStickRightAction = playerInputMap.FindAction("LeftStickRight");
         leftStickUpAction = playerInputMap.FindAction("LeftStickUp");
         leftStickDownAction = playerInputMap.FindAction("LeftStickDown");
+        rightStickLeftAction = playerInputMap.FindAction("RightStickLeft");
+        rightStickRightAction = playerInputMap.FindAction("RightStickRight");
+        rightStickUpAction = playerInputMap.FindAction("RightStickUp");
+        rightStickDownAction = playerInputMap.FindAction("RightStickDown");
 
         buttonStartAction = playerInputMap.FindAction("ButtonStart");
         buttonSelectAction = playerInputMap.FindAction("ButtonSelect");
@@ -120,6 +132,10 @@ public class InputHandler : MonoBehaviour
         leftStickRightAction.Enable();
         leftStickUpAction.Enable();
         leftStickDownAction.Enable();
+        rightStickLeftAction.Enable();
+        rightStickRightAction.Enable();
+        rightStickUpAction.Enable();
+        rightStickDownAction.Enable();
         buttonStartAction.Enable();
         buttonSelectAction.Enable();
 
@@ -146,6 +162,10 @@ public class InputHandler : MonoBehaviour
         leftStickRightAction.performed += HandleLeftStickRight;
         leftStickUpAction.performed += HandleLeftStickUp;
         leftStickDownAction.performed += HandleLeftStickDown;
+        rightStickLeftAction.performed += HandleRightStickLeft;
+        rightStickRightAction.performed += HandleRightStickRight;
+        rightStickUpAction.performed += HandleRightStickUp;
+        rightStickDownAction.performed += HandleRightStickDown;
         buttonStartAction.performed += HandleButtonStart;
         buttonSelectAction.performed += HandleButtonSelect;
     }
@@ -175,6 +195,10 @@ public class InputHandler : MonoBehaviour
         leftStickRightAction.performed -= HandleLeftStickRight;
         leftStickUpAction.performed -= HandleLeftStickUp;
         leftStickDownAction.performed -= HandleLeftStickDown;
+        rightStickLeftAction.performed -= HandleRightStickLeft;
+        rightStickRightAction.performed -= HandleRightStickRight;
+        rightStickUpAction.performed -= HandleRightStickUp;
+        rightStickDownAction.performed -= HandleRightStickDown;
         buttonStartAction.performed -= HandleButtonStart;
         buttonSelectAction.performed -= HandleButtonSelect;
 
@@ -199,6 +223,10 @@ public class InputHandler : MonoBehaviour
         leftStickRightAction.Disable();
         leftStickUpAction.Disable();
         leftStickDownAction.Disable();
+        rightStickLeftAction.Disable();
+        rightStickRightAction.Disable();
+        rightStickUpAction.Disable();
+        rightStickDownAction.Disable();
         buttonStartAction.Disable();
         buttonSelectAction.Disable();
     }
@@ -306,6 +334,26 @@ public class InputHandler : MonoBehaviour
     private void HandleLeftStickDown(InputAction.CallbackContext context)
     {
         OnLeftStickDown?.Invoke();
+    }
+    
+    private void HandleRightStickLeft(InputAction.CallbackContext context)
+    {
+        OnRightStickLeft?.Invoke();
+    }
+    
+    private void HandleRightStickRight(InputAction.CallbackContext context)
+    {
+        OnRightStickRight?.Invoke();
+    }
+    
+    private void HandleRightStickUp(InputAction.CallbackContext context)
+    {
+        OnRightStickUp?.Invoke();
+    }
+    
+    private void HandleRightStickDown(InputAction.CallbackContext context)
+    {
+        OnRightStickDown?.Invoke();
     }
     
     private void HandleButtonStart(InputAction.CallbackContext context)
