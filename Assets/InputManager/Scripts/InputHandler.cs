@@ -6,31 +6,57 @@ public class InputHandler : MonoBehaviour
 {
     // Define static events for input actions
     public static event Action<Vector2> OnLeftStick;
+    public static event Action OnLeftStickCanceled;
     public static event Action<Vector2> OnRightStick;
+    public static event Action OnRightStickCanceled;
     public static event Action OnButtonNorth;
+    public static event Action OnButtonNorthCanceled;
     public static event Action OnButtonSouth;
+    public static event Action OnButtonSouthCanceled;
     public static event Action OnButtonEast;
+    public static event Action OnButtonEastCanceled;
     public static event Action OnButtonWest;
+    public static event Action OnButtonWestCanceled;
     public static event Action<float> OnLeftTrigger;
+    public static event Action OnLeftTriggerCanceled;
     public static event Action<float> OnRightTrigger;
+    public static event Action OnRightTriggerCanceled;
     public static event Action OnLeftShoulder;
+    public static event Action OnLeftShoulderCanceled;
     public static event Action OnRightShoulder;
+    public static event Action OnRightShoulderCanceled;
     public static event Action OnLeftStickPress;
+    public static event Action OnLeftStickPressCanceled;
     public static event Action OnRightStickPress;
+    public static event Action OnRightStickPressCanceled;
     public static event Action OnPadLeft;
+    public static event Action OnPadLeftCanceled;
     public static event Action OnPadRight;
+    public static event Action OnPadRightCanceled;
     public static event Action OnPadUp;
+    public static event Action OnPadUpCanceled;
     public static event Action OnPadDown;
+    public static event Action OnPadDownCanceled;
     public static event Action OnLeftStickLeft;
+    public static event Action OnLeftStickLeftCanceled;
     public static event Action OnLeftStickRight;
+    public static event Action OnLeftStickRightCanceled;
     public static event Action OnLeftStickUp;
+    public static event Action OnLeftStickUpCanceled;
     public static event Action OnLeftStickDown;
+    public static event Action OnLeftStickDownCanceled;
     public static event Action OnRightStickLeft;
+    public static event Action OnRightStickLeftCanceled;
     public static event Action OnRightStickRight;
+    public static event Action OnRightStickRightCanceled;
     public static event Action OnRightStickUp;
+    public static event Action OnRightStickUpCanceled;
     public static event Action OnRightStickDown;
+    public static event Action OnRightStickDownCanceled;
     public static event Action OnButtonStart;
+    public static event Action OnButtonStartCanceled;
     public static event Action OnButtonSelect;
+    public static event Action OnButtonSelectCanceled;
 
     // Reference to the Input Actions asset
     [SerializeField] private InputActionAsset inputActions;
@@ -38,26 +64,26 @@ public class InputHandler : MonoBehaviour
     // Cached input actions
     private InputAction leftStickAction;
     private InputAction rightStickAction;
-    
+
     private InputAction buttonNorthAction;
     private InputAction buttonSouthAction;
     private InputAction buttonEastAction;
     private InputAction buttonWestAction;
-    
+
     private InputAction leftTriggerAction;
     private InputAction rightTriggerAction;
 
     private InputAction leftShoulderAction;
     private InputAction rightShoulderAction;
-    
+
     private InputAction leftStickPressAction;
     private InputAction rightStickPressAction;
-    
+
     private InputAction padLeftAction;
     private InputAction padRightAction;
     private InputAction padUpAction;
     private InputAction padDownAction;
-    
+
     private InputAction leftStickLeftAction;
     private InputAction leftStickRightAction;
     private InputAction leftStickUpAction;
@@ -66,7 +92,7 @@ public class InputHandler : MonoBehaviour
     private InputAction rightStickRightAction;
     private InputAction rightStickUpAction;
     private InputAction rightStickDownAction;
-    
+
     private InputAction buttonStartAction;
     private InputAction buttonSelectAction;
 
@@ -74,7 +100,7 @@ public class InputHandler : MonoBehaviour
     {
         // Get individual input actions
         var playerInputMap = inputActions.FindActionMap("Player"); // Replace "Player" with your action map name
-        
+
         leftStickAction = playerInputMap.FindAction("LeftStick");
         rightStickAction = playerInputMap.FindAction("RightStick");
 
@@ -141,66 +167,114 @@ public class InputHandler : MonoBehaviour
 
         // Subscribe to input action callbacks
         leftStickAction.performed += HandleLeftStick;
-        leftStickAction.canceled += HandleLeftStick; // To detect stop moving
+        leftStickAction.canceled += HandleLeftStickCanceled;
         rightStickAction.performed += HandleRightStick;
-        rightStickAction.canceled += HandleRightStick; // To detect stop looking
+        rightStickAction.canceled += HandleRightStickCanceled;
         buttonWestAction.performed += HandleButtonWest;
+        buttonWestAction.canceled += HandleButtonWestCanceled;
         buttonSouthAction.performed += HandleButtonSouth;
+        buttonSouthAction.canceled += HandleButtonSouthCanceled;
         buttonNorthAction.performed += HandleButtonNorth;
+        buttonNorthAction.canceled += HandleButtonNorthCanceled;
         buttonEastAction.performed += HandleButtonEast;
+        buttonEastAction.canceled += HandleButtonEastCanceled;
         leftTriggerAction.performed += HandleLeftTrigger;
+        leftTriggerAction.canceled += HandleLeftTriggerCanceled;
         rightTriggerAction.performed += HandleRightTrigger;
+        rightTriggerAction.canceled += HandleRightTriggerCanceled;
         leftShoulderAction.performed += HandleLeftShoulder;
+        leftShoulderAction.canceled += HandleLeftShoulderCanceled;
         rightShoulderAction.performed += HandleRightShoulder;
+        rightShoulderAction.canceled += HandleRightShoulderCanceled;
         leftStickPressAction.performed += HandleLeftStickPress;
+        leftStickPressAction.canceled += HandleLeftStickPressCanceled;
         rightStickPressAction.performed += HandleRightStickPress;
+        rightStickPressAction.canceled += HandleRightStickPressCanceled;
         padLeftAction.performed += HandlePadLeft;
+        padLeftAction.canceled += HandlePadLeftCanceled;
         padRightAction.performed += HandlePadRight;
+        padRightAction.canceled += HandlePadRightCanceled;
         padUpAction.performed += HandlePadUp;
+        padUpAction.canceled += HandlePadUpCanceled;
         padDownAction.performed += HandlePadDown;
+        padDownAction.canceled += HandlePadDownCanceled;
         leftStickLeftAction.performed += HandleLeftStickLeft;
+        leftStickLeftAction.canceled += HandleLeftStickLeftCanceled;
         leftStickRightAction.performed += HandleLeftStickRight;
+        leftStickRightAction.canceled += HandleLeftStickRightCanceled;
         leftStickUpAction.performed += HandleLeftStickUp;
+        leftStickUpAction.canceled += HandleLeftStickUpCanceled;
         leftStickDownAction.performed += HandleLeftStickDown;
+        leftStickDownAction.canceled += HandleLeftStickDownCanceled;
         rightStickLeftAction.performed += HandleRightStickLeft;
+        rightStickLeftAction.canceled += HandleRightStickLeftCanceled;
         rightStickRightAction.performed += HandleRightStickRight;
+        rightStickRightAction.canceled += HandleRightStickRightCanceled;
         rightStickUpAction.performed += HandleRightStickUp;
+        rightStickUpAction.canceled += HandleRightStickUpCanceled;
         rightStickDownAction.performed += HandleRightStickDown;
+        rightStickDownAction.canceled += HandleRightStickDownCanceled;
         buttonStartAction.performed += HandleButtonStart;
+        buttonStartAction.canceled += HandleButtonStartCanceled;
         buttonSelectAction.performed += HandleButtonSelect;
+        buttonSelectAction.canceled += HandleButtonSelectCanceled;
     }
 
     private void OnDisable()
     {
         // Unsubscribe to avoid memory leaks
         leftStickAction.performed -= HandleLeftStick;
-        leftStickAction.canceled -= HandleLeftStick;
+        leftStickAction.canceled -= HandleLeftStickCanceled;
         rightStickAction.performed -= HandleRightStick;
-        rightStickAction.canceled -= HandleRightStick;
+        rightStickAction.canceled -= HandleRightStickCanceled;
         buttonWestAction.performed -= HandleButtonWest;
+        buttonWestAction.canceled -= HandleButtonWestCanceled;
         buttonSouthAction.performed -= HandleButtonSouth;
+        buttonSouthAction.canceled -= HandleButtonSouthCanceled;
         buttonNorthAction.performed -= HandleButtonNorth;
+        buttonNorthAction.canceled -= HandleButtonNorthCanceled;
         buttonEastAction.performed -= HandleButtonEast;
+        buttonEastAction.canceled -= HandleButtonEastCanceled;
         leftTriggerAction.performed -= HandleLeftTrigger;
+        leftTriggerAction.canceled -= HandleLeftTriggerCanceled;
         rightTriggerAction.performed -= HandleRightTrigger;
+        rightTriggerAction.canceled -= HandleRightTriggerCanceled;
         leftShoulderAction.performed -= HandleLeftShoulder;
+        leftShoulderAction.canceled -= HandleLeftShoulderCanceled;
         rightShoulderAction.performed -= HandleRightShoulder;
+        rightShoulderAction.canceled -= HandleRightShoulderCanceled;
         leftStickPressAction.performed -= HandleLeftStickPress;
+        leftStickPressAction.canceled -= HandleLeftStickPressCanceled;
         rightStickPressAction.performed -= HandleRightStickPress;
+        rightStickPressAction.canceled -= HandleRightStickPressCanceled;
         padLeftAction.performed -= HandlePadLeft;
+        padLeftAction.canceled -= HandlePadLeftCanceled;
         padRightAction.performed -= HandlePadRight;
+        padRightAction.canceled -= HandlePadRightCanceled;
         padUpAction.performed -= HandlePadUp;
+        padUpAction.canceled -= HandlePadUpCanceled;
         padDownAction.performed -= HandlePadDown;
+        padDownAction.canceled -= HandlePadDownCanceled;
         leftStickLeftAction.performed -= HandleLeftStickLeft;
+        leftStickLeftAction.canceled -= HandleLeftStickLeftCanceled;
         leftStickRightAction.performed -= HandleLeftStickRight;
+        leftStickRightAction.canceled -= HandleLeftStickRightCanceled;
         leftStickUpAction.performed -= HandleLeftStickUp;
+        leftStickUpAction.canceled -= HandleLeftStickUpCanceled;
         leftStickDownAction.performed -= HandleLeftStickDown;
+        leftStickDownAction.canceled -= HandleLeftStickDownCanceled;
         rightStickLeftAction.performed -= HandleRightStickLeft;
+        rightStickLeftAction.canceled -= HandleRightStickLeftCanceled;
         rightStickRightAction.performed -= HandleRightStickRight;
+        rightStickRightAction.canceled -= HandleRightStickRightCanceled;
         rightStickUpAction.performed -= HandleRightStickUp;
+        rightStickUpAction.canceled -= HandleRightStickUpCanceled;
         rightStickDownAction.performed -= HandleRightStickDown;
+        rightStickDownAction.canceled -= HandleRightStickDownCanceled;
         buttonStartAction.performed -= HandleButtonStart;
+        buttonStartAction.canceled -= HandleButtonStartCanceled;
         buttonSelectAction.performed -= HandleButtonSelect;
+        buttonSelectAction.canceled -= HandleButtonSelectCanceled;
 
         // Disable input actions
         leftStickAction.Disable();
@@ -364,5 +438,136 @@ public class InputHandler : MonoBehaviour
     private void HandleButtonSelect(InputAction.CallbackContext context)
     {
         OnButtonSelect?.Invoke();
+    }
+    
+    // Input event handlers for canceled events
+    private void HandleLeftStickCanceled(InputAction.CallbackContext context)
+    {
+        OnLeftStickCanceled?.Invoke();
+    }
+    
+    private void HandleRightStickCanceled(InputAction.CallbackContext context)
+    {
+        OnRightStickCanceled?.Invoke();
+    }
+    
+    private void HandleButtonWestCanceled(InputAction.CallbackContext context)
+    {
+        OnButtonWestCanceled?.Invoke();
+    }
+    
+    private void HandleButtonSouthCanceled(InputAction.CallbackContext context)
+    {
+        OnButtonSouthCanceled?.Invoke();
+    }
+    
+    private void HandleButtonNorthCanceled(InputAction.CallbackContext context)
+    {
+        OnButtonNorthCanceled?.Invoke();
+    }
+    
+    private void HandleButtonEastCanceled(InputAction.CallbackContext context)
+    {
+        OnButtonEastCanceled?.Invoke();
+    }
+    
+    private void HandleLeftTriggerCanceled(InputAction.CallbackContext context)
+    {
+        OnLeftTriggerCanceled?.Invoke();
+    }
+    
+    private void HandleRightTriggerCanceled(InputAction.CallbackContext context)
+    {
+        OnRightTriggerCanceled?.Invoke();
+    }
+    
+    private void HandleLeftShoulderCanceled(InputAction.CallbackContext context)
+    {
+        OnLeftShoulderCanceled?.Invoke();
+    }
+    
+    private void HandleRightShoulderCanceled(InputAction.CallbackContext context)
+    {
+        OnRightShoulderCanceled?.Invoke();
+    }
+    
+    private void HandleLeftStickPressCanceled(InputAction.CallbackContext context)
+    {
+        OnLeftStickPressCanceled?.Invoke();
+    }
+    
+    private void HandleRightStickPressCanceled(InputAction.CallbackContext context)
+    {
+        OnRightStickPressCanceled?.Invoke();
+    }
+    
+    private void HandlePadLeftCanceled(InputAction.CallbackContext context)
+    {
+        OnPadLeftCanceled?.Invoke();
+    }
+    
+    private void HandlePadRightCanceled(InputAction.CallbackContext context)
+    {
+        OnPadRightCanceled?.Invoke();
+    }
+    
+    private void HandlePadUpCanceled(InputAction.CallbackContext context)
+    {
+        OnPadUpCanceled?.Invoke();
+    }
+    
+    private void HandlePadDownCanceled(InputAction.CallbackContext context)
+    {
+        OnPadDownCanceled?.Invoke();
+    }
+    
+    private void HandleLeftStickLeftCanceled(InputAction.CallbackContext context)
+    {
+        OnLeftStickLeftCanceled?.Invoke();
+    }
+    
+    private void HandleLeftStickRightCanceled(InputAction.CallbackContext context)
+    {
+        OnLeftStickRightCanceled?.Invoke();
+    }
+    
+    private void HandleLeftStickUpCanceled(InputAction.CallbackContext context)
+    {
+        OnLeftStickUpCanceled?.Invoke();
+    }
+    
+    private void HandleLeftStickDownCanceled(InputAction.CallbackContext context)
+    {
+        OnLeftStickDownCanceled?.Invoke();
+    }
+    
+    private void HandleRightStickLeftCanceled(InputAction.CallbackContext context)
+    {
+        OnRightStickLeftCanceled?.Invoke();
+    }
+    
+    private void HandleRightStickRightCanceled(InputAction.CallbackContext context)
+    {
+        OnRightStickRightCanceled?.Invoke();
+    }
+    
+    private void HandleRightStickUpCanceled(InputAction.CallbackContext context)
+    {
+        OnRightStickUpCanceled?.Invoke();
+    }
+    
+    private void HandleRightStickDownCanceled(InputAction.CallbackContext context)
+    {
+        OnRightStickDownCanceled?.Invoke();
+    }
+    
+    private void HandleButtonStartCanceled(InputAction.CallbackContext context)
+    {
+        OnButtonStartCanceled?.Invoke();
+    }
+    
+    private void HandleButtonSelectCanceled(InputAction.CallbackContext context)
+    {
+        OnButtonSelectCanceled?.Invoke();
     }
 }
