@@ -627,69 +627,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2467767413496154741, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2467767413496154741, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2467767413496154741, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2712440253777965479, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: orthographic
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2806598231047278191, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.b
-      value: 0.16037738
-      objectReference: {fileID: 0}
-    - target: {fileID: 2806598231047278191, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.g
-      value: 0.16037738
-      objectReference: {fileID: 0}
-    - target: {fileID: 2806598231047278191, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.r
-      value: 0.16037738
-      objectReference: {fileID: 0}
-    - target: {fileID: 4384883058355447702, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4384883058355447702, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4384883058355447702, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5845924288485977512, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5845924288485977512, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5845924288485977512, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6205057783039483376, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.b
-      value: 0.26415092
-      objectReference: {fileID: 0}
-    - target: {fileID: 6205057783039483376, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.g
-      value: 0.26415092
-      objectReference: {fileID: 0}
-    - target: {fileID: 6205057783039483376, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.r
-      value: 0.26415092
+    - target: {fileID: 5890076516776835445, guid: c063c71942f628b4396430bb36157baa, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -184
       objectReference: {fileID: 0}
     - target: {fileID: 6302052663215869089, guid: c063c71942f628b4396430bb36157baa, type: 3}
       propertyPath: m_Pivot.x
@@ -771,33 +711,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7150264955597245813, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7150264955597245813, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7150264955597245813, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.r
-      value: 0
+    - target: {fileID: 6668812504774605858, guid: c063c71942f628b4396430bb36157baa, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 184
       objectReference: {fileID: 0}
     - target: {fileID: 7471322783864789582, guid: c063c71942f628b4396430bb36157baa, type: 3}
       propertyPath: m_Name
       value: Gamepad Input Visualiser Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 7810246444706138335, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7810246444706138335, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7810246444706138335, guid: c063c71942f628b4396430bb36157baa, type: 3}
-      propertyPath: m_Color.r
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

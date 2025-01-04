@@ -17,6 +17,8 @@ public class InputDebugger : MonoBehaviour
         InputHandler.OnButtonEast += ButtonEast;
         InputHandler.OnLeftTrigger += LeftTrigger;
         InputHandler.OnRightTrigger += RightTrigger;
+        InputHandler.OnLeftTriggerPressed += LeftTriggerPress;
+        InputHandler.OnRightTriggerPressed += RightTriggerPress;
         InputHandler.OnLeftShoulder += LeftShoulder;
         InputHandler.OnRightShoulder += RightShoulder;
         InputHandler.OnLeftStickPress += LeftStickPress;
@@ -45,6 +47,8 @@ public class InputDebugger : MonoBehaviour
         InputHandler.OnButtonEastCanceled += ButtonEastCanceled;
         InputHandler.OnLeftTriggerCanceled += LeftTriggerCanceled;
         InputHandler.OnRightTriggerCanceled += RightTriggerCanceled;
+        InputHandler.OnLeftTriggerReleased += LeftTriggerReleased;
+        InputHandler.OnRightTriggerReleased += RightTriggerReleased;
         InputHandler.OnLeftShoulderCanceled += LeftShoulderCanceled;
         InputHandler.OnRightShoulderCanceled += RightShoulderCanceled;
         InputHandler.OnLeftStickPressCanceled += LeftStickPressCanceled;
@@ -76,6 +80,8 @@ public class InputDebugger : MonoBehaviour
         InputHandler.OnButtonEast -= ButtonEast;
         InputHandler.OnLeftTrigger -= LeftTrigger;
         InputHandler.OnRightTrigger -= RightTrigger;
+        InputHandler.OnLeftTriggerPressed -= LeftTriggerPress;
+        InputHandler.OnRightTriggerPressed -= RightTriggerPress;
         InputHandler.OnLeftShoulder -= LeftShoulder;
         InputHandler.OnRightShoulder -= RightShoulder;
         InputHandler.OnLeftStickPress -= LeftStickPress;
@@ -104,6 +110,8 @@ public class InputDebugger : MonoBehaviour
         InputHandler.OnButtonEastCanceled -= ButtonEastCanceled;
         InputHandler.OnLeftTriggerCanceled -= LeftTriggerCanceled;
         InputHandler.OnRightTriggerCanceled -= RightTriggerCanceled;
+        InputHandler.OnLeftTriggerReleased -= LeftTriggerReleased;
+        InputHandler.OnRightTriggerReleased -= RightTriggerReleased;
         InputHandler.OnLeftShoulderCanceled -= LeftShoulderCanceled;
         InputHandler.OnRightShoulderCanceled -= RightShoulderCanceled;
         InputHandler.OnLeftStickPressCanceled -= LeftStickPressCanceled;
@@ -172,6 +180,16 @@ public class InputDebugger : MonoBehaviour
     private void RightTrigger(float input)
     {
         DebugLog($"RightTrigger with input: {input}", true);
+    }
+    
+    private void LeftTriggerPress()
+    {
+        DebugLog("LeftTrigger pressed!", false);
+    }
+    
+    private void RightTriggerPress()
+    {
+        DebugLog("RightTrigger pressed!", false);
     }
 
     private void LeftShoulder()
@@ -297,12 +315,22 @@ public class InputDebugger : MonoBehaviour
 
     private void LeftTriggerCanceled()
     {
-        DebugLog("LeftTrigger canceled!", true);
+        DebugLog("LeftTrigger canceled!", false);
     }
 
     private void RightTriggerCanceled()
     {
-        DebugLog("RightTrigger canceled!", true);
+        DebugLog("RightTrigger canceled!", false);
+    }
+    
+    private void LeftTriggerReleased()
+    {
+        DebugLog("LeftTrigger released!", false);
+    }
+    
+    private void RightTriggerReleased()
+    {
+        DebugLog("RightTrigger released!", false);
     }
 
     private void LeftShoulderCanceled()

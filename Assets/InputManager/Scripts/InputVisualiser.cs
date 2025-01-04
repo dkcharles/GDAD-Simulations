@@ -1,15 +1,22 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
+using System.Collections;
+
 
 public class InputVisualiser : MonoBehaviour
 {
+    [Header("Colors")]
     [SerializeField] public Color inactiveColor;
     [SerializeField] public Color activeColor;
     
+    [Header("Stick Settings")]
     [SerializeField] float stickScale = 5.0f; // Adjust the scale as needed
     
     private Vector3 initialLeftStickPosition;
     private Vector3 initialRightStickPosition;
     
+    [Header("Button Sprites")]
     public SpriteRenderer leftStick;
     public SpriteRenderer rightStick;
     public SpriteRenderer btnNorth;
@@ -29,6 +36,14 @@ public class InputVisualiser : MonoBehaviour
     public SpriteRenderer btnStart;
     public SpriteRenderer btnSelect;
 
+    [Header("Text Displays")] 
+    public TextMeshProUGUI leftStickVector;
+    public TextMeshProUGUI rightStickVector;
+    public TextMeshProUGUI leftTriggerStatus;
+    public TextMeshProUGUI rightTriggerStatus;
+    public TextMeshProUGUI leftTriggerPressure;
+    public TextMeshProUGUI rightTriggerPressure;
+
     #region InputHandler Events Subscription
     private void OnEnable()
     {
@@ -41,6 +56,8 @@ public class InputVisualiser : MonoBehaviour
         InputHandler.OnButtonEast += ButtonEast;
         InputHandler.OnLeftTrigger += LeftTrigger;
         InputHandler.OnRightTrigger += RightTrigger;
+        InputHandler.OnLeftTriggerPressed += LeftTriggerPress;
+        InputHandler.OnRightTriggerPressed += RightTriggerPress;
         InputHandler.OnLeftShoulder += LeftShoulder;
         InputHandler.OnRightShoulder += RightShoulder;
         InputHandler.OnLeftStickPress += LeftStickPress;
@@ -69,6 +86,8 @@ public class InputVisualiser : MonoBehaviour
         InputHandler.OnButtonEastCanceled += ButtonEastCanceled;
         InputHandler.OnLeftTriggerCanceled += LeftTriggerCanceled;
         InputHandler.OnRightTriggerCanceled += RightTriggerCanceled;
+        InputHandler.OnLeftTriggerReleased += LeftTriggerReleased;
+        InputHandler.OnRightTriggerReleased += RightTriggerReleased;
         InputHandler.OnLeftShoulderCanceled += LeftShoulderCanceled;
         InputHandler.OnRightShoulderCanceled += RightShoulderCanceled;
         InputHandler.OnLeftStickPressCanceled += LeftStickPressCanceled;
@@ -100,6 +119,8 @@ public class InputVisualiser : MonoBehaviour
         InputHandler.OnButtonEast -= ButtonEast;
         InputHandler.OnLeftTrigger -= LeftTrigger;
         InputHandler.OnRightTrigger -= RightTrigger;
+        InputHandler.OnLeftTriggerPressed -= LeftTriggerPress;
+        InputHandler.OnRightTriggerPressed -= RightTriggerPress;
         InputHandler.OnLeftShoulder -= LeftShoulder;
         InputHandler.OnRightShoulder -= RightShoulder;
         InputHandler.OnLeftStickPress -= LeftStickPress;
@@ -128,6 +149,8 @@ public class InputVisualiser : MonoBehaviour
         InputHandler.OnButtonEastCanceled -= ButtonEastCanceled;
         InputHandler.OnLeftTriggerCanceled -= LeftTriggerCanceled;
         InputHandler.OnRightTriggerCanceled -= RightTriggerCanceled;
+        InputHandler.OnLeftTriggerReleased -= LeftTriggerReleased;
+        InputHandler.OnRightTriggerReleased -= RightTriggerReleased;
         InputHandler.OnLeftShoulderCanceled -= LeftShoulderCanceled;
         InputHandler.OnRightShoulderCanceled -= RightShoulderCanceled;
         InputHandler.OnLeftStickPressCanceled -= LeftStickPressCanceled;
@@ -184,6 +207,14 @@ public class InputVisualiser : MonoBehaviour
         btnPadRight.gameObject.SetActive(false);
         btnPadUp.gameObject.SetActive(false);
         btnPadDown.gameObject.SetActive(false);
+        
+        //set the text to empty
+        leftTriggerStatus.text = "- - -";
+        rightTriggerStatus.text = "- - -";
+        leftTriggerPressure.text = "0.00";
+        rightTriggerPressure.text = "0.00";
+        leftStickVector.text = "(0.00, 0.00)";
+        rightStickVector.text = "(0.00, 0.00)";
     }
     
     // input events
@@ -193,6 +224,8 @@ public class InputVisualiser : MonoBehaviour
         
         Vector3 newPosition = initialLeftStickPosition + new Vector3(input.x, input.y, 0) * stickScale;
         leftStick.transform.localPosition = newPosition;
+        
+        leftStickVector.text = input.ToString("F2");
     }
 
     private void RightStick(Vector2 input)
@@ -201,6 +234,8 @@ public class InputVisualiser : MonoBehaviour
         
         Vector3 newPosition = initialRightStickPosition + new Vector3(input.x, input.y, 0) * stickScale;
         rightStick.transform.localPosition = newPosition;
+        
+        rightStickVector.text = input.ToString("F2");
     }
 
     private void ButtonSouth()
@@ -228,6 +263,7 @@ public class InputVisualiser : MonoBehaviour
         Color color = activeColor;
         color.a = Mathf.Clamp01(input); // Set the alpha based on the input, clamped between 0 and 1
         btnLeftTrigger.color = color;
+        leftTriggerPressure.text = input.ToString("F2");
     }
 
     private void RightTrigger(float input)
@@ -235,7 +271,18 @@ public class InputVisualiser : MonoBehaviour
         Color color = activeColor;
         color.a = Mathf.Clamp01(input); // Set the alpha based on the input, clamped between 0 and 1
         btnRightTrigger.color = color;
+        rightTriggerPressure.text = input.ToString("F2");
     }
+    
+    private void LeftTriggerPress()
+    {
+        leftTriggerStatus.text = "Pressed";
+    }
+    
+    private void RightTriggerPress()
+    {
+        rightTriggerStatus.text = "Pressed";
+    }   
 
     private void LeftShoulder()
     {
@@ -336,12 +383,16 @@ public class InputVisualiser : MonoBehaviour
     {
         leftStick.color = inactiveColor;
         leftStick.transform.localPosition = initialLeftStickPosition;
+        
+        leftStickVector.text = ("(0.00, 0.00)");
     }
     
     private void RightStickCanceled()
     {
         rightStick.color = inactiveColor;
         rightStick.transform.localPosition = initialRightStickPosition;
+        
+        rightStickVector.text = ("(0.00, 0.00)");
     }
     
     private void ButtonSouthCanceled()
@@ -363,15 +414,37 @@ public class InputVisualiser : MonoBehaviour
     {   
         btnEast.color = inactiveColor;
     }
-    
+
     private void LeftTriggerCanceled()
     {
         btnLeftTrigger.color = inactiveColor;
+        leftTriggerStatus.text = "Canceled";
+        leftTriggerPressure.text = "0.00";
+        StartCoroutine(ResetTriggerStatus(leftTriggerStatus));
     }
-    
+
     private void RightTriggerCanceled()
     {
         btnRightTrigger.color = inactiveColor;
+        rightTriggerStatus.text = "Canceled";
+        rightTriggerPressure.text = "0.00";
+        StartCoroutine(ResetTriggerStatus(rightTriggerStatus));
+    }
+
+    private IEnumerator ResetTriggerStatus(TextMeshProUGUI triggerStatus)
+    {
+        yield return new WaitForSeconds(1);
+        triggerStatus.text = "- - -";
+    }
+    
+    private void LeftTriggerReleased()
+    {
+        leftTriggerStatus.text = "Released";
+    }
+    
+    private void RightTriggerReleased()
+    {
+        rightTriggerStatus.text = "Released";
     }
     
     private void LeftShoulderCanceled()
@@ -467,5 +540,6 @@ public class InputVisualiser : MonoBehaviour
     {
         btnSelect.color = inactiveColor;
     }
+    
     
 }

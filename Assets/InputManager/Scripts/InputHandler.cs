@@ -21,6 +21,10 @@ public class InputHandler : MonoBehaviour
     public static event Action OnLeftTriggerCanceled;
     public static event Action<float> OnRightTrigger;
     public static event Action OnRightTriggerCanceled;
+    public static event Action OnLeftTriggerPressed;
+    public static event Action OnLeftTriggerReleased;
+    public static event Action OnRightTriggerPressed;
+    public static event Action OnRightTriggerReleased;
     public static event Action OnLeftShoulder;
     public static event Action OnLeftShoulderCanceled;
     public static event Action OnRightShoulder;
@@ -72,6 +76,8 @@ public class InputHandler : MonoBehaviour
 
     private InputAction leftTriggerAction;
     private InputAction rightTriggerAction;
+    private InputAction leftTriggerPressedAction;
+    private InputAction rightTriggerPressedAction;
 
     private InputAction leftShoulderAction;
     private InputAction rightShoulderAction;
@@ -111,6 +117,8 @@ public class InputHandler : MonoBehaviour
 
         leftTriggerAction = playerInputMap.FindAction("LeftTrigger");
         rightTriggerAction = playerInputMap.FindAction("RightTrigger");
+        leftTriggerPressedAction = playerInputMap.FindAction("LeftTriggerPress");
+        rightTriggerPressedAction = playerInputMap.FindAction("RightTriggerPress");
 
         leftShoulderAction = playerInputMap.FindAction("LeftShoulder");
         rightShoulderAction = playerInputMap.FindAction("RightShoulder");
@@ -146,6 +154,8 @@ public class InputHandler : MonoBehaviour
         buttonEastAction.Enable();
         leftTriggerAction.Enable();
         rightTriggerAction.Enable();
+        leftTriggerPressedAction.Enable();
+        rightTriggerPressedAction.Enable();
         leftShoulderAction.Enable();
         rightShoulderAction.Enable();
         leftStickPressAction.Enable();
@@ -182,6 +192,8 @@ public class InputHandler : MonoBehaviour
         leftTriggerAction.canceled += HandleLeftTriggerCanceled;
         rightTriggerAction.performed += HandleRightTrigger;
         rightTriggerAction.canceled += HandleRightTriggerCanceled;
+        leftTriggerPressedAction.performed += HandleLeftTriggerPressed;
+        rightTriggerPressedAction.performed += HandleRightTriggerPressed;
         leftShoulderAction.performed += HandleLeftShoulder;
         leftShoulderAction.canceled += HandleLeftShoulderCanceled;
         rightShoulderAction.performed += HandleRightShoulder;
@@ -239,6 +251,8 @@ public class InputHandler : MonoBehaviour
         leftTriggerAction.canceled -= HandleLeftTriggerCanceled;
         rightTriggerAction.performed -= HandleRightTrigger;
         rightTriggerAction.canceled -= HandleRightTriggerCanceled;
+        leftTriggerPressedAction.performed -= HandleLeftTriggerPressed;
+        rightTriggerPressedAction.performed -= HandleRightTriggerPressed;
         leftShoulderAction.performed -= HandleLeftShoulder;
         leftShoulderAction.canceled -= HandleLeftShoulderCanceled;
         rightShoulderAction.performed -= HandleRightShoulder;
@@ -285,6 +299,8 @@ public class InputHandler : MonoBehaviour
         buttonEastAction.Disable();
         leftTriggerAction.Disable();
         rightTriggerAction.Disable();
+        leftTriggerPressedAction.Disable();
+        rightTriggerPressedAction.Disable();
         leftShoulderAction.Disable();
         rightShoulderAction.Disable();
         leftStickPressAction.Disable();
@@ -348,6 +364,30 @@ public class InputHandler : MonoBehaviour
     {
         var input = context.ReadValue<float>();
         OnRightTrigger?.Invoke(input);
+    }
+    
+    private void HandleLeftTriggerPressed(InputAction.CallbackContext context)
+    {
+        if (context.control.IsPressed())
+        {
+            OnLeftTriggerPressed?.Invoke();
+        }
+        else
+        {
+            OnLeftTriggerReleased?.Invoke();
+        }
+    }
+
+    private void HandleRightTriggerPressed(InputAction.CallbackContext context)
+    {
+        if (context.control.IsPressed())
+        {
+            OnRightTriggerPressed?.Invoke();
+        }
+        else
+        {
+            OnRightTriggerReleased?.Invoke();
+        }
     }
     
     private void HandleLeftShoulder(InputAction.CallbackContext context)
@@ -440,7 +480,7 @@ public class InputHandler : MonoBehaviour
         OnButtonSelect?.Invoke();
     }
     
-    // Input event handlers for canceled events
+    // Input event handlers for canceled or released events
     private void HandleLeftStickCanceled(InputAction.CallbackContext context)
     {
         OnLeftStickCanceled?.Invoke();
