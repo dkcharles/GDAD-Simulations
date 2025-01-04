@@ -43,6 +43,9 @@ public class InputVisualiser : MonoBehaviour
     public TextMeshProUGUI rightTriggerStatus;
     public TextMeshProUGUI leftTriggerPressure;
     public TextMeshProUGUI rightTriggerPressure;
+    
+    private bool leftTriggerStatusChanged = false;
+    private bool rightTriggerStatusChanged = false;
 
     #region InputHandler Events Subscription
     private void OnEnable()
@@ -276,13 +279,15 @@ public class InputVisualiser : MonoBehaviour
     
     private void LeftTriggerPress()
     {
+        leftTriggerStatusChanged = true;
         leftTriggerStatus.text = "Pressed";
     }
-    
+
     private void RightTriggerPress()
     {
+        rightTriggerStatusChanged = true;
         rightTriggerStatus.text = "Pressed";
-    }   
+    } 
 
     private void LeftShoulder()
     {
@@ -420,7 +425,8 @@ public class InputVisualiser : MonoBehaviour
         btnLeftTrigger.color = inactiveColor;
         leftTriggerStatus.text = "Canceled";
         leftTriggerPressure.text = "0.00";
-        StartCoroutine(ResetTriggerStatus(leftTriggerStatus));
+        leftTriggerStatusChanged = false;
+        StartCoroutine(ResetTriggerStatus(leftTriggerStatus, () => leftTriggerStatusChanged));
     }
 
     private void RightTriggerCanceled()
@@ -428,22 +434,28 @@ public class InputVisualiser : MonoBehaviour
         btnRightTrigger.color = inactiveColor;
         rightTriggerStatus.text = "Canceled";
         rightTriggerPressure.text = "0.00";
-        StartCoroutine(ResetTriggerStatus(rightTriggerStatus));
+        rightTriggerStatusChanged = false;
+        StartCoroutine(ResetTriggerStatus(rightTriggerStatus, () => rightTriggerStatusChanged));
     }
 
-    private IEnumerator ResetTriggerStatus(TextMeshProUGUI triggerStatus)
+    private IEnumerator ResetTriggerStatus(TextMeshProUGUI triggerStatus, System.Func<bool> statusChanged)
     {
         yield return new WaitForSeconds(1);
-        triggerStatus.text = "- - -";
+        if (!statusChanged())
+        {
+            triggerStatus.text = "- - -";
+        }
     }
     
     private void LeftTriggerReleased()
     {
+        leftTriggerStatusChanged = true;
         leftTriggerStatus.text = "Released";
     }
-    
+
     private void RightTriggerReleased()
     {
+        rightTriggerStatusChanged = true;
         rightTriggerStatus.text = "Released";
     }
     
