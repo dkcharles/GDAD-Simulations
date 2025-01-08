@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CinemachineTarget
   - NPC
+  - WayPoints
   layers:
   - Default
   - TransparentFX

@@ -9,11 +9,10 @@ public class AI_FSM : MonoBehaviour
     // Private Variables
     [SerializeField] private float distanceToPlayer;
     [SerializeField] private bool playerVisible;
-    [SerializeField] private float chaseDistance = 10.0f;
-    [SerializeField] private float attackDistance = 2.0f;
-    [SerializeField] private float chaseHysterisis = 2.0f;
-    [SerializeField] private float attackHysterisis = 0.5f;
-    
+    [SerializeField] private float chaseDistance;
+    [SerializeField] private float attackDistance;
+    [SerializeField] private float chaseHysterisis;
+    [SerializeField] private float attackHysterisis;
     // AI animators
     Animator fsm_anim; // top level animator for the AI FSM
     [SerializeField] private Animator AIState_Patrol; // child animator for the AI FSM
@@ -30,8 +29,6 @@ public class AI_FSM : MonoBehaviour
         // set initial player distance to infinity
         distanceToPlayer = Mathf.Infinity;
         fsm_anim = GetComponent<Animator>();
-
-        
     }
 
     // Update is called once per frame
