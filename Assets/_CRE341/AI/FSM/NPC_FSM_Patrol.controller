@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9af162dd100cca459c103930c534b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WaypointTarget: {fileID: 0}
 --- !u!1102 &-3106210677237274321
 AnimatorState:
   serializedVersion: 6
@@ -111,13 +112,13 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -3106210677237274321}
-    m_Position: {x: 518.84534, y: -58.214966, z: 0}
+    m_Position: {x: 450, y: 10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3615109353982051832}
     m_Position: {x: 720, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8697903714933155049}
-    m_Position: {x: 460, y: 250, z: 0}
+    m_Position: {x: 450, y: 240, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

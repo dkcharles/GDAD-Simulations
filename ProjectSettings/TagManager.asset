@@ -7,6 +7,9 @@ TagManager:
   - CinemachineTarget
   - NPC
   - WayPoints
+  - Food
+  - Fox
+  - Rabbit
   layers:
   - Default
   - TransparentFX
@@ -14,8 +17,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Player
+  - NPC
   - 
   - 
   - 

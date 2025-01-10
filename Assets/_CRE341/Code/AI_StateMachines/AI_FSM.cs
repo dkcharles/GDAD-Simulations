@@ -16,6 +16,8 @@ public class AI_FSM : MonoBehaviour
     // AI animators
     Animator fsm_anim; // top level animator for the AI FSM
     [SerializeField] private Animator AIState_Patrol; // child animator for the AI FSM
+    [SerializeField] private Animator AIState_Chase; // child animator for the AI FSM
+    [SerializeField] private Animator AIState_Attack; // child animator for the AI FSM
 
     // Animator Params
     private static Dictionary<int, string> animStateHashToName = new Dictionary<int, string>();
@@ -37,17 +39,23 @@ public class AI_FSM : MonoBehaviour
         if (fsm_anim.GetCurrentAnimatorStateInfo(0).IsName("Patrol")) 
         {
             Debug.Log("Patrol State");
-            AIState_Patrol.enabled = true;
+            AIState_Patrol.enabled = true; 
+            AIState_Chase.enabled = false;
+            AIState_Attack.enabled = false;
         }
         else if (fsm_anim.GetCurrentAnimatorStateInfo(0).IsName("Chase")) 
         {
             Debug.Log("Chase State");
             AIState_Patrol.enabled = false;
+            AIState_Chase.enabled = true; 
+            AIState_Attack.enabled = false;
         }
         else if (fsm_anim.GetCurrentAnimatorStateInfo(0).IsName("Attack")) 
         {
             Debug.Log("Attack State");
             AIState_Patrol.enabled = false;
+            AIState_Chase.enabled = false;
+            AIState_Attack.enabled = true;
         }
     }
 
