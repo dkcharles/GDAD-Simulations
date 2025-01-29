@@ -213,9 +213,9 @@ public class Rabbit : MonoBehaviour
 void Die()
 {
     // Decrement the rabbit count in the GameManager
-    if (GameManager.Instance != null)
+    if (LifeGameManager.Instance != null)
     {
-        GameManager.Instance.DecrementRabbitCount();
+        LifeGameManager.Instance.DecrementRabbitCount();
     }
 
     Destroy(gameObject);

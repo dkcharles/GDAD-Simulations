@@ -5,10 +5,10 @@ using System.IO;
 using System.Text;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class LifeGameManager : MonoBehaviour
 {
     // Singleton instance
-    public static GameManager Instance { get; private set; }
+    public static LifeGameManager Instance { get; private set; }
 
     public GameObject foxPrefab;
     public GameObject rabbitPrefab;

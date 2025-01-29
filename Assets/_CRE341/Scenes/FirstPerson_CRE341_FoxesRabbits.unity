@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 414995377}
   - component: {fileID: 414995376}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: LifeGameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -231,7 +231,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: aa88de9fa50852c4c9da7c35f5ffbd77, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 7d91d619e97574941b52cc1f35e9a04a, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &485202081
 Transform:
@@ -242,7 +242,7 @@ Transform:
   m_GameObject: {fileID: 485202079}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.770753, y: -0.72787666, z: -17.825876}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

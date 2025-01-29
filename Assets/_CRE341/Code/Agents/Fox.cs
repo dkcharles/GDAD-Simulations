@@ -82,7 +82,7 @@ public class Fox : MonoBehaviour
     void EatRabbit()
     {
         Destroy(targetRabbit);
-        GameManager.Instance.DecrementRabbitCount();
+        LifeGameManager.Instance.DecrementRabbitCount();
         targetRabbit = null;
         agent.ResetPath();
 
@@ -161,9 +161,9 @@ public class Fox : MonoBehaviour
 void Die()
 {
     // Decrement the fox count in the GameManager
-    if (GameManager.Instance != null)
+    if (LifeGameManager.Instance != null)
     {
-        GameManager.Instance.DecrementFoxCount();
+        LifeGameManager.Instance.DecrementFoxCount();
     }
 
     Destroy(gameObject);
