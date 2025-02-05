@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "GDAD-CoreURP.sln"
+    "dotnet.defaultSolution": "GDAD-FoxRabbitSim.sln"
 }
