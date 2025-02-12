@@ -17,9 +17,9 @@ public class CatMiceGameManager : MonoBehaviour
     public int initialCatCount = 3;
 
     // Chase parameters
-    public float maxSight = 5.0f;
-    public float maxAngle = 30.0f; // degrees
-    public float maxChaseTime = 0.5f; // seconds
+    public float catMaxSight;
+    public float catMaxAngle; // degrees
+    public float catMaxChaseTime; // seconds
 
     [Header("Chase Parameters")]
     public AnimationCurve distanceCurve;

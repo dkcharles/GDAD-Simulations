@@ -3,8 +3,13 @@ using UnityEngine;
 
 public class Mouse : MonoBehaviour
 {
-    public float maxSpeed = 1.0f;
-    public float maxSight = 5.0f;
+    public float maxSpeed;
+    public float maxSight;
+
+    public float wanderSpeed;
+    public float wanderTime;
+    private float timeToChangeDirection = 0;
+    private Vector3 randomDirection;
     private Transform closestCatPosition = null;
     void Start()
     {
@@ -50,9 +55,24 @@ public class Mouse : MonoBehaviour
                 // get flee distance value from CatMiceGameManager.Instance.fleeDistanceCurve
                 float fleeDistance = CatMiceGameManager.Instance.fleeDistanceCurve.Evaluate(distScaled);
 
-                transform.position += direction.normalized * fleeDistance * Time.deltaTime;
-            }
-            
-        }
-    }
-}
+                                transform.position += direction.normalized * fleeDistance * maxSpeed * Time.deltaTime;
+                            }
+                            else
+                            {
+                                // move randomly
+                                // move randomly
+                                if (timeToChangeDirection <= 0)
+                                {
+                                    float x = UnityEngine.Random.Range(-1.0f, 1.0f);
+                                    float z = UnityEngine.Random.Range(-1.0f, 1.0f);
+                                    randomDirection = new Vector3(x, 0, z);
+                                    timeToChangeDirection = wanderTime;
+                                }
+                                transform.position += randomDirection.normalized * wanderSpeed * Time.deltaTime;
+                                timeToChangeDirection -= Time.deltaTime;
+                            }
+                            
+                        }
+                    }
+
+                }

@@ -607,9 +607,9 @@ MonoBehaviour:
   CatPrefab: {fileID: 5797102320983360421, guid: 9cb241e8d22dace4280b6ea800a3d3c0, type: 3}
   initialMiceCount: 20
   initialCatCount: 3
-  maxSight: 5
-  maxAngle: 30
-  maxChaseTime: 3
+  catMaxSight: 0
+  catMaxAngle: 0
+  catMaxChaseTime: 0
   distanceCurve:
     serializedVersion: 2
     m_Curve:
