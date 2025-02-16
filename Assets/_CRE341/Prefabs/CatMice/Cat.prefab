@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3867889509855313647}
   - component: {fileID: 2793893842574620417}
   - component: {fileID: 8301162147213929394}
-  - component: {fileID: 5074366193935783256}
   m_Layer: 7
   m_Name: AIGraphics
   m_TagString: NPC
@@ -111,33 +110,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &5074366193935783256
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2091679735704079028}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 0
 --- !u!1 &5797102320983360421
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +138,7 @@ Transform:
   m_GameObject: {fileID: 5797102320983360421}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6487945, y: 1.1, z: 27.39}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -229,3 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1830fff05e638849bb2a548eddd49d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fuzzyDistance: 1
+  fuzzyAngle: 0
+  fuzzyChaseContinuity: 0
+  mostDesireableMouse: {fileID: 0}

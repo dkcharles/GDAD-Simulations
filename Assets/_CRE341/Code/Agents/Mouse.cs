@@ -1,5 +1,6 @@
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Mouse : MonoBehaviour
 {
@@ -11,22 +12,37 @@ public class Mouse : MonoBehaviour
     private float timeToChangeDirection = 0;
     private Vector3 randomDirection;
     private Transform closestCatPosition = null;
+
+    public float desireability = 0;
+    public float chaseTime = 0;
+    private Rigidbody rb;
+    private NavMeshAgent agent;
+
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
+
+        // Ensure the NavMeshAgent is not null
+        if (agent == null)
+        {
+            Debug.LogError("NavMeshAgent not found on this GameObject.  Please add one.");
+            enabled = false; // Disable this script to prevent further errors
+            return;
+        }
+
+        agent.speed = wanderSpeed; // Set initial speed
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // iterate through all cats in CatMiceGameManager.Instance.catList
-        // find the closest cat and move directly away from it 
+        // Find the closest cat and move away from it using NavMeshAgent
+
+        // Reset closestCatPosition at the beginning of each update
+        closestCatPosition = null;
 
         foreach (GameObject cat in CatMiceGameManager.Instance.catList)
         {
-            // debug/log 
-            // Debug.Log(cat.transform.position);
-            
             if (closestCatPosition == null)
             {
                 closestCatPosition = cat.transform;
@@ -45,34 +61,43 @@ public class Mouse : MonoBehaviour
             Vector3 direction = transform.position - closestCatPosition.position;
             Vector3 distance = transform.position - closestCatPosition.position;
 
-            // Debug.Log("cat at this distance " + distance.magnitude);
-
             if (distance.magnitude < maxSight)
             {
-                Debug.Log("cat within sight");
-                // normalise distance over maxSight
-                float distScaled = distance.magnitude/maxSight; 
-                // get flee distance value from CatMiceGameManager.Instance.fleeDistanceCurve
-                float fleeDistance = CatMiceGameManager.Instance.fleeDistanceCurve.Evaluate(distScaled);
+                // Calculate flee position
+                Vector3 fleePosition = transform.position + direction.normalized * maxSight * 2; // Flee further than sight range
 
-                                transform.position += direction.normalized * fleeDistance * maxSpeed * Time.deltaTime;
-                            }
-                            else
-                            {
-                                // move randomly
-                                // move randomly
-                                if (timeToChangeDirection <= 0)
-                                {
-                                    float x = UnityEngine.Random.Range(-1.0f, 1.0f);
-                                    float z = UnityEngine.Random.Range(-1.0f, 1.0f);
-                                    randomDirection = new Vector3(x, 0, z);
-                                    timeToChangeDirection = wanderTime;
-                                }
-                                transform.position += randomDirection.normalized * wanderSpeed * Time.deltaTime;
-                                timeToChangeDirection -= Time.deltaTime;
-                            }
-                            
-                        }
-                    }
+                // Move to flee position using NavMeshAgent
+                agent.speed = maxSpeed;
+                agent.SetDestination(fleePosition);
+            }
+            else if (timeToChangeDirection <= 0)
+            {
+                // Wander using NavMeshAgent
+                Wander();
+            }
 
-                }
+            timeToChangeDirection -= Time.deltaTime;
+        }
+        else if (timeToChangeDirection <= 0)
+        {
+            // If no cat is in sight, wander
+            Wander();
+        }
+        timeToChangeDirection -= Time.deltaTime;
+    }
+
+    void Wander()
+    {
+        // Generate a random point within a sphere and set it as the destination
+        Vector3 randomPoint = UnityEngine.Random.insideUnitSphere * wanderTime;
+        randomPoint += transform.position;
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(randomPoint, out hit, wanderTime, 1))
+        {
+            agent.speed = wanderSpeed;
+            agent.SetDestination(hit.position);
+            timeToChangeDirection = wanderTime;
+        }
+    }
+}

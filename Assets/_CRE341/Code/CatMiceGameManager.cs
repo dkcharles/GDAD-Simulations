@@ -20,6 +20,7 @@ public class CatMiceGameManager : MonoBehaviour
     public float catMaxSight;
     public float catMaxAngle; // degrees
     public float catMaxChaseTime; // seconds
+    public float catSpeed;
 
     [Header("Chase Parameters")]
     public AnimationCurve distanceCurve;
@@ -71,7 +72,7 @@ public class CatMiceGameManager : MonoBehaviour
             float randomX = Random.Range(groundBounds.min.x, groundBounds.max.x);
             float randomZ = Random.Range(groundBounds.min.z, groundBounds.max.z);
 
-            Vector3 spawnPosition = new Vector3(randomX, groundBounds.max.y + prefab.transform.localScale.y / 2, randomZ);
+            Vector3 spawnPosition = new Vector3(randomX, 3, randomZ);
 
             GameObject newObject = Instantiate(prefab, spawnPosition, Quaternion.identity);
             if (prefab.name == "Mice")
